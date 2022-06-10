@@ -8,6 +8,8 @@ services:
       - ./www/:/var/www/html
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
+    depends_on:
+      - database
 
   database:
     image: mariadb:10.4
@@ -19,3 +21,11 @@ services:
       - "3306:3306"
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1

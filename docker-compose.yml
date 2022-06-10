@@ -8,3 +8,14 @@ services:
       - ./www/:/var/www/html
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
+
+  database:
+    image: mariadb:10.4
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: blabla
+      MYSQL_DATABASE: bibliotheque
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d

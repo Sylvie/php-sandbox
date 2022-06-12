@@ -1,7 +1,10 @@
 version: "2"
 services:
   webserver:
-    image: phpstorm/php-apache:7.4-xdebug2.9
+#    image: phpstorm/php-apache:7.4-xdebug2.9
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "80:80"
     volumes:

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpunit
         colors="true"
-        stopOnFailure="false">
+        stopOnFailure="false"
+        bootstrap="tests/bootstrap.php">
 
     <testsuites>
-        <testsuite name="Calculator">
+        <testsuite  name="Greeter">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

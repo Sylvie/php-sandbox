@@ -2,13 +2,14 @@
 
 namespace user_interactions;
 
-require_once "src/DatabaseConnection.php";
+#require_once "src/DatabaseConnection.php";
 
 
 class Greeter
 {
-    public function __construct(string $name)
+    public function __construct(\mysqli $mysqli, string $name)
     {
+        $this->mysqli = $mysqli;
         $this->name = $name;
     }
 
@@ -17,13 +18,19 @@ class Greeter
     }
 
     public function findFavouriteFood() {
-        $result = mysqli_query($LINK, "Select * from user where name=$this->name") or die('Error while fetching data.');
+        $queryResult = $this->mysqli->query('Select * from user where name="$this->name"') or die('Error while fetching data.');
+
+        $row = $queryResult->fetch_array();
+
+        $result =  "I don't know your favourite food.";
+        if (is_array($row)) {
+            $result = $row['favorite_food'];
+        }
 
         return $result;
-
-        return "I don't know your favourite food.";
     }
 
+    private $mysqli;
     private string $name;
 }
 

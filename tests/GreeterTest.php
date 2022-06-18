@@ -21,7 +21,7 @@ class GreeterTest extends \PHPUnit\Framework\TestCase {
         $dbMock = $this->createMock(mysqli::class);
         $dbMock->expects($this->once())
             ->method('query')
-            ->with($this->equalTo('Select * from user where name="Sam"'))
+            ->with($this->equalTo("Select * from user where name='Sam'"))
             ->willReturn($resultMock);
 
         $greeter = new \user_interactions\Greeter($dbMock, "Sam");
@@ -41,14 +41,14 @@ class GreeterTest extends \PHPUnit\Framework\TestCase {
         $dbMock = $this->createMock(mysqli::class);
         $dbMock->expects($this->once())
             ->method('query')
-            ->with($this->equalTo('Select * from user where name="Tina"'))
+            ->with($this->equalTo("Select * from user where name='Tina'"))
             ->willReturn($resultMock);
 
         $greeter = new \user_interactions\Greeter($dbMock, "Tina");
 
         $result = $greeter->findFavouriteFood();
 
-        $this->assertEquals("Your favourite food are Cookies." , $result);
+        $this->assertEquals("Your favourite food is Cookies." , $result);
     }
 }
 

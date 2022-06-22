@@ -19,8 +19,6 @@ jobs:
       - name: Execution des tests
         run: |
           ls -lha
-          cd php-sandbox
-          ls -lha
           php phpunit.phar --configuration phpunit.xml --teamcity
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

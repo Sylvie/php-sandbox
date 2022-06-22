@@ -18,7 +18,7 @@ jobs:
           coverage: xdebug, phpunit
       - name: Execution des tests
         run: |
-          cd php-sandbox
+#          cd php-sandbox
           ls -lha
           php phpunit.phar --configuration phpunit.xml --teamcity
       - name: SonarCloud Scan

@@ -19,7 +19,10 @@ jobs:
       - name: Execution des tests
         run: |
           ls -lha
-          php phpunit.phar --configuration phpunit.xml --teamcity
+          php phpunit.phar --configuration phpunit.xml --testdox --coverage-clover=coverage.xml
+      - name: Fix code coverage paths
+        run: |
+          sed -i's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

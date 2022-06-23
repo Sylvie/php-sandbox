@@ -38,3 +38,4 @@ services:
       - .:/opt/project/
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
+      XDEBUG_MODE: coverage

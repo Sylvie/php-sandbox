@@ -10,7 +10,8 @@
         </testsuite>
     </testsuites>
 
-    <coverage includeUncoveredFiles="true"
+    <coverage cacheDirectory="phpunit-results-cache"
+              includeUncoveredFiles="true"
               processUncoveredFiles="false"
               pathCoverage="false"
               ignoreDeprecatedCodeUnits="true"

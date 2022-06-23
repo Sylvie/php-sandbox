@@ -18,5 +18,9 @@
         <include>
             <directory suffix=".php">.</directory>
         </include>
+
+        <report>
+            <clover outputFile="coverage.xml"/>
+        </report>
     </coverage>
 </phpunit>

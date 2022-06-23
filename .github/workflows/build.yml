@@ -19,7 +19,7 @@ jobs:
           tools: phpunit
       - name: Execution des tests
         run: |
-          php phpunit.phar --configuration phpunit.xml --testdox --coverage-clover=coverage.xml
+          php phpunit.phar --configuration phpunit.xml --testdox
       - name: Fix code coverage paths
         run: |
           sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml

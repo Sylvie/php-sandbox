@@ -1,22 +1,15 @@
 <?php
 
+/**
+ * @runTestsInSeparateProcesses
+ */
 class welcomeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testHelloWorld()
-    {
-        $this->expectOutputString('Hello World!');
-
-        include_once 'www/HelloWorld.php';
-    }
-
-    /**
-     * @backupGlobals
-     */
-    public function testHelloSylvie()
+    public function testWelcomeWithUnknownFavouriteFood()
     {
         global $_GET;
         $_GET = [];
-        $_GET['name'] = "Sylvie";
+        $_GET['name'] = "Clara";
 
         $resultMock = $this->createMock(mysqli_result::class);
         $resultMock->expects($this->once())
@@ -27,28 +20,39 @@ class welcomeTest extends \PHPUnit\Framework\TestCase
         $dbMock = $this->createMock(mysqli::class);
         $dbMock->expects($this->once())
             ->method('query')
-            ->with($this->equalTo("Select * from user where name='Sylvie'"))
+            ->with($this->equalTo("Select * from user where name='Clara'"))
             ->willReturn($resultMock);
 
         global $LINK;
         $LINK = $dbMock;
 
-
-
-        $this->expectOutputRegex("/^Hello Sylvie !<br \/>I don\'t know your favourite food./");
+        $this->expectOutputRegex("/^Hello Clara !<br \/>I don\'t know your favourite food./");
 
         include_once 'www/welcome.php';
     }
-
-
-    public function testHelloSylviewithrealdb()
+    
+    public function testWelcomeWithKnownFavouriteFood()
     {
         global $_GET;
         $_GET = [];
-        $_GET['name'] = "Sylvie";
-        
+        $_GET['name'] = "Tina";
 
-        $this->expectOutputRegex("/^Hello Sylvie !<br \/>Your favourite food is Entrecôtes./");
+        $resultMock = $this->createMock(mysqli_result::class);
+        $resultMock->expects($this->once())
+            ->method('fetch_array')
+            ->with()
+            ->willReturn(["id" => 1, "name" => "Tina", "favourite_food" => "Cookies"]);
+
+        $dbMock = $this->createMock(mysqli::class);
+        $dbMock->expects($this->once())
+            ->method('query')
+            ->with($this->equalTo("Select * from user where name='Tina'"))
+            ->willReturn($resultMock);
+
+        global $LINK;
+        $LINK = $dbMock;
+
+        $this->expectOutputRegex("/^Hello Tina !<br \/>Your favourite food is Cookies./");
 
         include_once 'www/welcome.php';
     }

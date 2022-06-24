@@ -69,7 +69,7 @@ class welcomeTest extends \PHPUnit\Framework\TestCase
         global $LINK;
         $LINK = $dbMock;
 
-        $this->expectOutputRegex("/^Hello World!/");
+        $this->expectOutputRegex("/^Hello world!/");
 
         include_once 'www/Welcome.php';
     }

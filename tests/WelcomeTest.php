@@ -28,9 +28,9 @@ class welcomeTest extends \PHPUnit\Framework\TestCase
 
         $this->expectOutputRegex("/^Hello Clara !<br \/>I don\'t know your favourite food./");
 
-        include_once 'www/welcome.php';
+        include_once 'www/Welcome.php';
     }
-    
+
     public function testWelcomeWithKnownFavouriteFood()
     {
         global $_GET;
@@ -54,8 +54,26 @@ class welcomeTest extends \PHPUnit\Framework\TestCase
 
         $this->expectOutputRegex("/^Hello Tina !<br \/>Your favourite food is Cookies./");
 
-        include_once 'www/welcome.php';
+        include_once 'www/Welcome.php';
     }
+
+    public function testWithoutUser()
+    {
+        global $_GET;
+        $_GET = [];
+
+        $dbMock = $this->createMock(mysqli::class);
+        $dbMock->expects($this->never())
+            ->method('query');
+
+        global $LINK;
+        $LINK = $dbMock;
+
+        $this->expectOutputRegex("/^Hello World!/");
+
+        include_once 'www/Welcome.php';
+    }
+
 }
 
 ?>
